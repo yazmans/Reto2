@@ -41,6 +41,7 @@ public:
     gota() {// constructor
     }
 
+    gota()
     /*void defdivision(n) {
         delta_t=_delta-t;
     }*/

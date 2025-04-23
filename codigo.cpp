@@ -52,8 +52,9 @@ int main(){
             timeE=timeE+dt;
             steps++;
         }
-
-        cout<<"Velocidad final sin campo"<<velocity<<endl;
-        cout<<"Velocidad final con campo"<<velocityE<<endl;
+        cout<<"Gota "<<i<<endl;
+        cout<<"Velocidad final sin campo: "<<velocity<<endl;
+        cout<<"Velocidad final con campo: "<<velocityE<<endl;
+        cout<<endl;
     }
 }
