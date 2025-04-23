@@ -9,23 +9,30 @@
 #define SIMULACION_hpp
 
 #include <stdio.h>
-#include <vector>
+# define _USE_MATH_DEFINES
+#include <cmath>
+#include <cstdlib>
+#include <ctime>
+srand (static_cast <unsigned> (time(0)));
 using namespace std;
 
 class gota { // una clase que almacena todos los calculos y datos disponibles para cada gota a ser analizada
 private:
-    float radius, mass;
+    double radius, mass;
     float density=0; //definir la densidad PENDIENTE
     double charge;
     int n; // cantidad de intervalos para tomar su pocicion y movimiento
-    float height; //position, FALTA POR DEFINIR
-    float time; //intervalos de tiemp de caida FALTA POR DEFINIR
-    float velocity;
-    float aceleration;
-    float V_off, V_on; //velocidad terminal con el campo activado y desactivado
+    double height[1]; //position, FALTA POR DEFINIR
+    double time[1]; //intervalos de tiemp de caida FALTA POR DEFINIR
+    double velocity[1];
+    double aceleration[1];
+    double V_off, V_on; //velocidad terminal con el campo activado y desactivado
 public:
-    gota() {// constructor
-        
+    gota() { // constructor
+        radius=rand()%((2.790*pow(10,-6))-(2.780*pow(10,-6))); // PENDIENTE DE INVESTIGAR
+        density=919.9;
+        mass=(4/3*M_PI*pow(radius,3))*density;
+        height[1]=(16*10^(-3));
     }
     void defdivision(int _n) {
         n=_n;
