@@ -10,47 +10,41 @@
 #define _USE_MATH_DEFINES
 
 #include <stdio.h>
-#include <vector>
+# define _USE_MATH_DEFINES
 #include <cmath>
+#include <cstdlib>
+#include <ctime>
+srand (static_cast <unsigned> (time(0)));
 using namespace std;
 
 class gota { // una clase que almacena todos los calculos y datos disponibles para cada gota a ser analizada
 private:
     double radius, mass;
-    double density; //definir la densidad PENDIENTE
+    float density=0; //definir la densidad PENDIENTE
     double charge;
-    //double velocity;
-    //double acceleration;
-    int n; // cantidad de intervalos para tomar su pocision y movimiento
-    float h(); //position, FALTA POR DEFINIR
-    //float time(); intervalos de tiemp de caida FALTA POR DEFINIR
-    //float velocity();
-    //float V_off, V_off; //velocidad terminal con el campo activado y desactivado
+    int n; // cantidad de intervalos para tomar su pocicion y movimiento
+    double height[1]; //position, FALTA POR DEFINIR
+    double time[1]; //intervalos de tiemp de caida FALTA POR DEFINIR
+    double velocity[1];
+    double aceleration[1];
+    double V_off, V_on; //velocidad terminal con el campo activado y desactivado
 public:
-
-    /*double changeAceleration(double gravity, double airDensity,double pressure, double airViscosity, double electricField){
-        double b=7.88e-3;
-        double F=-4*(M_PI/3)*pow(radius,3)*(density-airDensity)*gravity
-        -6*M_PI*airViscosity*radius*velocity/(1+b/(pressure*radius))+
-        charge*electricField;
-        acceleration=mass*F;
-        return acceleration;
-    }*/
-
-    //Constructor, getters, setters
-    gota() {// constructor
+    gota() { // constructor
+        radius=rand()%((2.790*pow(10,-6))-(2.780*pow(10,-6))); // PENDIENTE DE INVESTIGAR
+        density=919.9;
+        mass=(4/3*M_PI*pow(radius,3))*density;
+        height[1]=(16*10^(-3));
     }
-
-    gota()
-    /*void defdivision(n) {
-        delta_t=_delta-t;
-    }*/
+    void defdivision(int _n) {
+        n=_n;
+    }
     
     //metodos para obtener los valores de la gota
-    /*int getdivision() {
-        return delta_t;
-    }*/
-    double getrad() {
+    //al parecer no se pueden usar no-estaticos en los arreglos de las propiedades, por lo que esta variable [n] es inutil, por ahora, pero hay que ver como se puede modificar el tamaño del arreglo para dejarlo a discrecion del usuario.
+    int getdivision() {
+        return n;
+    }
+    float getrad() {
         return radius;
     }
     double getmass() {
@@ -59,22 +53,24 @@ public:
     double getdensity() {
         return density;
     }
-    double getcharge(){
-        return charge;
-    }
-    /*float getheight(interval) {
+    float getheight(int interval) {
+        int height[interval];
         return height[interval];
     }
-    float getvelocity(interval) {
+    float getvelocity(int interval) {
+        int velocity[interval];
         return velocity[interval];
     }
-    float getacceleration(interval) {
+    float getacceleration(int interval) {
+        int acceleration[interval];
         return acceleration[interval];
     }
     float getV_off() {
-        return V-off;
-    }*/
-
+        return V_off;
+    }
+    float getV_on() {
+        return V_on;
+    }
 };
 
 
