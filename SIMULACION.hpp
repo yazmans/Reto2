@@ -17,23 +17,23 @@ private:
     float radius, mass;
     float density=0; //definir la densidad PENDIENTE
     double charge;
-    int n // cantidad de intervalos para tomar su pocicion y movimiento
+    int n; // cantidad de intervalos para tomar su pocicion y movimiento
     float h[n]; //position, FALTA POR DEFINIR
     float time[n]; //intervalos de tiemp de caida FALTA POR DEFINIR
     float velocity[n];
     float aceleration[n];
-    float V_off, V_off; //velocidad terminal con el campo activado y desactivado
+    float V_off, V_on; //velocidad terminal con el campo activado y desactivado
 public:
     gota() {// constructor
         
     }
-    void defdivision(n) {
-        delta_t=_delta-t;
+    void defdivision(int _n) {
+        n=_n;
     }
     
     //metodos para obtener los valores de la gota
     int getdivision() {
-        return delta_t;
+        return n;
     }
     float getrad() {
         return radius;
@@ -44,17 +44,23 @@ public:
     float getrho() {
         return density;
     }
-    float getheight(interval) {
+    float getheight(int interval) {
+        int height[interval];
         return height[interval];
     }
-    float getvelocity(interval) {
+    float getvelocity(int interval) {
+        int velocity[interval];
         return velocity[interval];
     }
-    float getacceleration(interval) {
+    float getacceleration(int interval) {
+        int acceleration[interval];
         return acceleration[interval];
     }
     float getV_off() {
-        return V-offf;
+        return V_off;
+    }
+    float getV_on() {
+        return V_on;
     }
 };
 
