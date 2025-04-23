@@ -7,44 +7,61 @@
 
 #ifndef SIMULACION_hpp
 #define SIMULACION_hpp
+#define _USE_MATH_DEFINES
 
 #include <stdio.h>
 #include <vector>
+#include <cmath>
 using namespace std;
 
 class gota { // una clase que almacena todos los calculos y datos disponibles para cada gota a ser analizada
 private:
-    float radius, mass;
-    float density=0; //definir la densidad PENDIENTE
+    double radius, mass;
+    double density; //definir la densidad PENDIENTE
     double charge;
-    int n // cantidad de intervalos para tomar su pocicion y movimiento
-    float h[n]; //position, FALTA POR DEFINIR
-    float time[n]; //intervalos de tiemp de caida FALTA POR DEFINIR
-    float velocity[n];
-    float aceleration[n];
-    float V_off, V_off; //velocidad terminal con el campo activado y desactivado
+    //double velocity;
+    //double acceleration;
+    int n; // cantidad de intervalos para tomar su pocision y movimiento
+    float h(); //position, FALTA POR DEFINIR
+    //float time(); intervalos de tiemp de caida FALTA POR DEFINIR
+    //float velocity();
+    //float V_off, V_off; //velocidad terminal con el campo activado y desactivado
 public:
+
+    /*double changeAceleration(double gravity, double airDensity,double pressure, double airViscosity, double electricField){
+        double b=7.88e-3;
+        double F=-4*(M_PI/3)*pow(radius,3)*(density-airDensity)*gravity
+        -6*M_PI*airViscosity*radius*velocity/(1+b/(pressure*radius))+
+        charge*electricField;
+        acceleration=mass*F;
+        return acceleration;
+    }*/
+
+    //Constructor, getters, setters
     gota() {// constructor
-        
     }
-    void defdivision(n) {
+
+    /*void defdivision(n) {
         delta_t=_delta-t;
-    }
+    }*/
     
     //metodos para obtener los valores de la gota
-    int getdivision() {
+    /*int getdivision() {
         return delta_t;
-    }
-    float getrad() {
+    }*/
+    double getrad() {
         return radius;
     }
-    float getmass() {
+    double getmass() {
         return mass;
     }
-    float getrho() {
+    double getdensity() {
         return density;
     }
-    float getheight(interval) {
+    double getcharge(){
+        return charge;
+    }
+    /*float getheight(interval) {
         return height[interval];
     }
     float getvelocity(interval) {
@@ -54,8 +71,9 @@ public:
         return acceleration[interval];
     }
     float getV_off() {
-        return V-offf;
-    }
+        return V-off;
+    }*/
+
 };
 
 
