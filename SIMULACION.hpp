@@ -18,10 +18,10 @@ private:
     float density=0; //definir la densidad PENDIENTE
     double charge;
     int n; // cantidad de intervalos para tomar su pocicion y movimiento
-    float h[n]; //position, FALTA POR DEFINIR
-    float time[n]; //intervalos de tiemp de caida FALTA POR DEFINIR
-    float velocity[n];
-    float aceleration[n];
+    float height; //position, FALTA POR DEFINIR
+    float time; //intervalos de tiemp de caida FALTA POR DEFINIR
+    float velocity;
+    float aceleration;
     float V_off, V_on; //velocidad terminal con el campo activado y desactivado
 public:
     gota() {// constructor
@@ -32,6 +32,7 @@ public:
     }
     
     //metodos para obtener los valores de la gota
+    //al parecer no se pueden usar no-estaticos en los arreglos de las propiedades, por lo que esta variable [n] es inutil, por ahora, pero hay que ver como se puede modificar el tamaño del arreglo para dejarlo a discrecion del usuario.
     int getdivision() {
         return n;
     }
