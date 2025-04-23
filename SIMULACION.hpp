@@ -9,30 +9,45 @@
 #define SIMULACION_hpp
 
 #include <stdio.h>
-# define _USE_MATH_DEFINES
+#define _USE_MATH_DEFINES
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
-srand (static_cast <unsigned> (time(0)));
+#include <vector>
+//srand (static_cast <unsigned> (time(0)));
 using namespace std;
+
+template<typename T>
+T getRandomElement(const std::vector<T>& vec) {
+    if (vec.empty()) throw std::runtime_error("Vector is empty!");
+
+    // Seed with a real random value, if available
+    static std::mt19937 rng(std::random_device{}());
+
+    std::uniform_int_distribution<std::size_t> dist(0, vec.size() - 1);
+    return vec[dist(rng)];
+}
+
+
 
 class gota { // una clase que almacena todos los calculos y datos disponibles para cada gota a ser analizada
 private:
     double radius, mass;
-    float density=0; //definir la densidad PENDIENTE
+    float density; //definir la densidad PENDIENTE
     double charge;
     int n; // cantidad de intervalos para tomar su pocicion y movimiento
-    double height[1]; //position, FALTA POR DEFINIR
-    double time[1]; //intervalos de tiemp de caida FALTA POR DEFINIR
-    double velocity[1];
-    double aceleration[1];
+    vector<double> height; //position, FALTA POR DEFINIR
+    vector<double> time; //intervalos de tiemp de caida FALTA POR DEFINIR
+    vector<double> velocity;
+    vector<double> acceleration;
     double V_off, V_on; //velocidad terminal con el campo activado y desactivado
 public:
     gota() { // constructor
-        radius=rand()%((2.790*pow(10,-6))-(2.780*pow(10,-6))); // PENDIENTE DE INVESTIGAR
+        vector<double> possibleR={2.780,2,781,2.782,2.783,2.784,2.785,2.786,2.787,2.788,2.789,2.790};
+        radius=getRandomElement(possibleR)*pow(10,-6);
         density=919.9;
         mass=(4/3*M_PI*pow(radius,3))*density;
-        height[1]=(16*10^(-3));
+        height[1]=(16*pow(10,-3));
     }
     void defdivision(int _n) {
         n=_n;
