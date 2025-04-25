@@ -29,16 +29,16 @@ T getRandomElement(const std::vector<T>& vec) {
     }
 }
 
-
+//Esto es un mugrero pero sirve
 
 class gota { // una clase que almacena todos los calculos y datos disponibles para cada gota a ser analizada
 private:
     double radius, mass;
-    float density; //definir la densidad PENDIENTE
+    float density;
     double charge;
-    int n; // cantidad de intervalos para tomar su pocicion y movimiento
-    vector<double> height; //position, FALTA POR DEFINIR
-    vector<double> time; //intervalos de tiemp de caida FALTA POR DEFINIR
+    int n; // cantidad de intervalos para tomar su pocicion y movimiento (pendiente de eliminar)
+    vector<double> height; //vectores de aceleracion,velocidad etcetera que (se supone) tiene que agregarse cada valor corespondiente, PENDIENTE CHECAR SI SE PUEDE USAR UNA MATRIZ
+    vector<double> time;
     vector<double> velocity;
     vector<double> acceleration;
     double V_off, V_on; //velocidad terminal con el campo activado y desactivado
@@ -59,32 +59,88 @@ public:
     int getdivision() {
         return n;
     }
-    float getrad() {
+    double getrad() {
         return radius;
     }
-    float getmass() {
+    double getmass() {
         return mass;
     }
-    float getrho() {
+    double getrho() {
         return density;
     }
-    float getheight(int interval) {
+    double getheight(int interval) {
         int height[interval];
         return height[interval];
     }
-    float getvelocity(int interval) {
+    double getvelocity(int interval) {
         int velocity[interval];
         return velocity[interval];
     }
-    float getacceleration(int interval) {
+    double getacceleration(int interval) {
         int acceleration[interval];
         return acceleration[interval];
     }
-    float getV_off() {
+    double getV_off() {
         return V_off;
     }
-    float getV_on() {
+    double getV_on() {
         return V_on;
+    }
+    //instalacion de valores
+    void defV_on(double _V_on) {
+        V_on=_V_on;
+    }
+    void defV_off(double _V_off) {
+        V_off=_V_off;
+    }
+    void defrad(double _radius) {
+        radius=_radius;
+    }
+    void defmass(double _mass) {
+        density=_mass;
+    }
+    void defrho(float _density) {
+        density=_density;
+    }
+    void defcharge(double _charge) {
+        charge=_charge;
+    }
+    void p_height(double _height) {
+        height.push_back(_height);
+    }
+    void p_time(double _time) {
+        time.push_back(_time);
+    }
+    void Vel(double _velocity) {
+        velocity.push_back(_velocity);
+    }
+    void Acc(double _acceleration) {
+        acceleration.push_back(_acceleration);
+    }
+    //regresar los valores de los vectores
+    double indexheight(int i) {
+        return height[i];
+    }
+    double indexvelociry(int i) {
+        return velocity[i];
+    }
+    double indextime(int i) {
+        return time[i];
+    }
+    double indexacc(int i) {
+        return acceleration[i];
+    }
+    vector<double> vecheight() {
+        return height;
+    }
+    vector<double> vecvelocity() {
+        return velocity;
+    }
+    vector<double> vectime() {
+        return time;
+    }
+    vector<double> vecacc() {
+        return acceleration;
     }
 };
 
