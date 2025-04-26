@@ -8,6 +8,8 @@
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
+
+
 using namespace std;
 
 class gota { // una clase que almacena todos los calculos y datos disponibles para cada gota a ser analizada

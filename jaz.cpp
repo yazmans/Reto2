@@ -1,7 +1,11 @@
 //Esto solo es una prueba 
 
 #include <iostream>
-#include <Gota.h>
+#include "Gota.h"
+#include <vector>
+#include <random>
+#include <ctime>
+#include "SIMULACION.hpp"
 using namespace std;
 
 int main(){
