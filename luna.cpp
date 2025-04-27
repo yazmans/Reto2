@@ -15,7 +15,7 @@ using namespace std;
 int main() {
     int dropletQ=1; //cantidad de gotas a analizar
     gota gotas[dropletQ];
-    double deltaT=0.01; //definir el salto de tiempo
+    double deltaT=0.0001; //definir el salto de tiempo
     double gravity=9.803;
     double airV= 1.81e-5;
     double airD=1.2;
@@ -32,7 +32,7 @@ int main() {
         {
             double drag=-6*M_PI*airV*gotas[i].getrad()*gotas[i].indexvelociry(j)/(1+b/pressure*gotas[i].getrad());
             gotas[i].defdrag(drag);
-            double acceleration=(gotas[i].getweight()+drag)/gotas[i].getmass();
+            double acceleration=(gotas[i].getweight()+drag-gotas[i].getbuoyant())/gotas[i].getmass();
             gotas[i].Acc(acceleration);
             double vel= gotas[i].indexvelociry(j)+gotas[i].indexacc(j)*deltaT;
             gotas[i].Vel(vel);
@@ -51,7 +51,7 @@ int main() {
         {
             double drag=-6*M_PI*airV*gotas[i].getrad()*gotas[i].indexvelociry(j)/(1+b/pressure*gotas[i].getrad());
             gotas[i].defdrag(drag);
-            double acceleration=(gotas[i].getweight()+drag-gotas[i].getelectricF())/gotas[i].getmass();
+            double acceleration=(gotas[i].getweight()+drag-gotas[i].getelectricF()-gotas[i].getbuoyant())/gotas[i].getmass();
             gotas[i].Acc(acceleration);
             double vel= gotas[i].indexvelociry(j)+gotas[i].indexacc(j)*deltaT;
             gotas[i].Vel(vel);
