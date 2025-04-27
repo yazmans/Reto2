@@ -58,7 +58,7 @@ public:
         mass=volume*(density-1.2);
         height.push_back(16e-3);
         weight=9.803*mass;
-        acceleration.push_back(9.803);
+        acceleration.push_back(0);
         velocity.push_back(0);
         time.push_back(0);
         
@@ -147,7 +147,7 @@ public:
         return acceleration;
     }
     void calcstuff(double airDensity, double electricfield) {
-        buoyantF=airDensity*volume*9.803;
+        buoyantF=1.2*volume*9.803;
         electricforce=electricfield*charge;
     }
     double getbuoyant() {
