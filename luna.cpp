@@ -15,7 +15,7 @@ using namespace std;
 int main() {
     int dropletQ=1; //cantidad de gotas a analizar
     gota gotas[dropletQ];
-    double deltaT=0.0001; //definir el salto de tiempo
+    double deltaT=0.001; //definir el salto de tiempo
     double gravity=9.803;
     double airV= 1.81e-5;
     double airD=1.2;
@@ -28,7 +28,7 @@ int main() {
     for (int i=0;i<dropletQ;i++) {
         gotas[i].calcstuff(airD,electricF);
         int j=0;
-        while ((gotas[i].vecheight()).back()>0)
+        while (gotas[i].indexacc(j)>1e-5)
         {
             double drag=-6*M_PI*airV*gotas[i].getrad()*gotas[i].indexvelociry(j)/(1+b/pressure*gotas[i].getrad());
             gotas[i].defdrag(drag);
@@ -39,15 +39,15 @@ int main() {
             double height=gotas[i].indexheight(j)-vel*deltaT;
             gotas[i].p_height(height);
             gotas[i].p_time(gotas[i].indextime(j)+deltaT);
-            j++;
             //suferencia: insertar grafica aqui
+            j++;
         }
         gotas[i].defV_off((gotas[i].vecvelocity()).back());
     
         
         gotas[i].clearll();
         j=0;
-        while ((gotas[i].vecheight()).back()>0)
+        while (gotas[i].indexacc(j)>1e-5)
         {
             double drag=-6*M_PI*airV*gotas[i].getrad()*gotas[i].indexvelociry(j)/(1+b/pressure*gotas[i].getrad());
             gotas[i].defdrag(drag);
@@ -58,8 +58,8 @@ int main() {
             double height=gotas[i].indexheight(j)-vel*deltaT;
             gotas[i].p_height(height);
             gotas[i].p_time(gotas[i].indextime(j)+deltaT);
-            j++;
             //sugerencia: insertar ottra grafica aqui
+            j++;
         }
         gotas[i].defV_on((gotas[i].vecvelocity()).back());
         //calcular la carga electrica de la particula

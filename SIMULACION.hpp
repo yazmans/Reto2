@@ -54,7 +54,7 @@ public:
         vector<double> possibleR={2.780,2.781,2.782,2.783,2.784,2.785,2.786,2.787,2.788,2.789,2.790};
         radius=getRandomElement(possibleR)*pow(10,-6);
         density=919.9;
-        volume=(4.0/3.0*M_PI*pow(radius,3));
+        volume=((4.0/3.0)*M_PI*pow(radius,3));
         mass=volume*(density-1.2);
         height.push_back(16e-3);
         weight=9.803*mass;
