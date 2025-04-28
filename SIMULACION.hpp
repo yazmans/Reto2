@@ -54,11 +54,11 @@ public:
         vector<double> possibleR={2.780,2.781,2.782,2.783,2.784,2.785,2.786,2.787,2.788,2.789,2.790};
         radius=getRandomElement(possibleR)*pow(10,-6);
         density=919.9;
-        volume=((4.0/3.0)*M_PI*pow(radius,3));
+        volume=(4/3*M_PI*pow(radius,3));
         mass=volume*(density-1.2);
         height.push_back(16e-3);
         weight=9.803*mass;
-        acceleration.push_back(0);
+        acceleration.push_back(9.803);
         velocity.push_back(0);
         time.push_back(0);
         
@@ -147,7 +147,7 @@ public:
         return acceleration;
     }
     void calcstuff(double airDensity, double electricfield) {
-        buoyantF=1.2*volume*9.803;
+        buoyantF=airDensity*volume*9.803;
         electricforce=electricfield*charge;
     }
     double getbuoyant() {
