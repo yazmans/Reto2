@@ -52,7 +52,15 @@ private:
 public:
     gota() { // constructor
         vector<double> possibleR={2.780,2.781,2.782,2.783,2.784,2.785,2.786,2.787,2.788,2.789,2.790};
+        vector<double> possiblecharge={
+            4.20e-20,   2.04e-19,   3.66e-19,   5.28e-19,   6.90e-19,
+              8.52e-19,   1.01e-18,   1.17e-18,   1.33e-18,   1.49e-18,
+              1.65e-18,   1.81e-18,   1.97e-18,   2.13e-18,   2.29e-18,
+              2.45e-18,   2.61e-18,   2.77e-18,   2.93e-18,   3.09e-18,
+              3.25e-18,   3.41e-18,   3.57e-18,   3.73e-18,   3.85e-18
+        };
         radius=getRandomElement(possibleR)*pow(10,-6);
+        charge=getRandomElement(possiblecharge);
         density=919.9;
         volume=(4/3*M_PI*pow(radius,3));
         mass=volume*(density-1.2);
