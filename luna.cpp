@@ -14,6 +14,7 @@
 #include "SIMULACION.hpp"
 using namespace std;
 
+
 int main() {
     int dropletQ=5; //cantidad de gotas a analizar
     gota gotas[dropletQ];
@@ -25,6 +26,18 @@ int main() {
     double platevoltage=5e3;
     double electricF=platevoltage/platedistance; //calculo del campo electrico
     double pressure=13438.7;
+    double capacitancia=2.2125e-13;
+    vector<double> tiempo;
+    vector<double> voltaje;
+    double voltaje_C;
+    double deltaV_C;
+    double Q=capacitancia*platevoltage;
+    double constanteTau=5.8631e-21;
+    double Area=4e-4;
+    double epsilon_0=8.85418781762039e-12;
+    
+    
+    
     
     for (int i=0;i<dropletQ;i++) {
         gotas[i].calcstuff(airD,electricF);
@@ -69,6 +82,11 @@ int main() {
         j=0;
         while (abs(gotas[i].indexacc(j))>1e-5 or gotas[i].indexacc(j)==0)
         {
+            deltaV_C=(Q/capacitancia)*platevoltage*(1-exp(-deltaT/constanteTau));
+            voltaje_C=platevoltage+deltaV_C;
+            voltaje.push_back(voltaje_C);
+            Q= capacitancia*platevoltage*(1-exp(-deltaT/constanteTau));
+            electricF=Q/(Area*epsilon_0);
             double drag=-6*M_PI*airV*gotas[i].getrad()*gotas[i].indexvelociry(j)/(1+(b/pressure*gotas[i].getrad()));
             gotas[i].defdrag(drag);
             double acceleration=(gotas[i].getweight()+drag-gotas[i].getelectricF()-gotas[i].getbuoyant())/gotas[i].getmass();
