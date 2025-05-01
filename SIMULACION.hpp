@@ -30,6 +30,7 @@ T getRandomElement(const std::vector<T>& vec) {
     }
 }
 
+
 //Esto es un mugrero pero sirve
 
 class gota { // una clase que almacena todos los calculos y datos disponibles para cada gota a ser analizada
@@ -48,28 +49,38 @@ private:
     vector<double> time;
     vector<double> velocity;
     vector<double> acceleration;
+    
+    //vectores para circuito RC
+    vector<double> voltaje;
+    vector<double> Electric;
+    vector<double> PotDis;
+    
     double V_off, V_on; //velocidad terminal con el campo activado y desactivado
 public:
     gota() { // constructor
         vector<double> possibleR={2.780,2.781,2.782,2.783,2.784,2.785,2.786,2.787,2.788,2.789,2.790};
-        vector<double> possiblecharge={
-            4.20e-20,   2.04e-19,   3.66e-19,   5.28e-19,   6.90e-19,
-              8.52e-19,   1.01e-18,   1.17e-18,   1.33e-18,   1.49e-18,
-              1.65e-18,   1.81e-18,   1.97e-18,   2.13e-18,   2.29e-18,
-              2.45e-18,   2.61e-18,   2.77e-18,   2.93e-18,   3.09e-18,
-              3.25e-18,   3.41e-18,   3.57e-18,   3.73e-18,   3.85e-18
+        vector<double> possibleN={
+            10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+                20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+                30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
+                40, 41, 42, 43, 44, 45, 46, 47, 48, 49,
+                50, 51, 52, 53, 54, 55, 56, 57, 58, 59,
+                60, 61, 62, 63, 64, 65, 66, 67, 68, 69,
+                70, 71, 72, 73, 74, 75, 76, 77, 78, 79,
+                80, 81, 82, 83, 84, 85, 86, 87, 88, 89,
+                90, 91, 92, 93, 94, 95, 96, 97, 98, 99,
+                100
         };
         radius=getRandomElement(possibleR)*pow(10,-6);
-        charge=getRandomElement(possiblecharge);
+        charge=getRandomElement(possibleN)*(-1.602176634e-19);
         density=919.9;
-        volume=(4/3*M_PI*pow(radius,3));
+        volume=(4.0/3.0*M_PI*pow(radius,3));
         mass=volume*(density-1.2);
         height.push_back(16e-3);
         weight=9.803*mass;
         acceleration.push_back(9.803);
         velocity.push_back(0);
         time.push_back(0);
-        
     }
     
     //metodos para obtener los valores de la gota
@@ -157,6 +168,7 @@ public:
     void calcstuff(double airDensity, double electricfield) {
         buoyantF=airDensity*volume*9.803;
         electricforce=electricfield*charge;
+        Electric.push_back(electricfield);
     }
     double getbuoyant() {
         return buoyantF;
@@ -178,6 +190,39 @@ public:
     }
     double getweight() {
         return weight;
+    }
+    double indexP(int index) {
+        return PotDis[index];
+    }
+    double indexelectric(int index) {
+        return Electric[index];
+    }
+    double indexvolt(int index) {
+        return voltaje[index];
+    }
+    void p_P(double value) {
+        PotDis.push_back(value);
+    }
+    void p_electric(double value) {
+        Electric.push_back(value);
+    }
+    void p_voltage(double value) {
+        voltaje.push_back(value);
+    }
+    vector<double> getvoltage() {
+        return voltaje;
+    }
+    vector<double> getElectric() {
+        return Electric;
+    }
+    vector<double> getP() {
+        return PotDis;
+    }
+    void defelectricforce(double _electricfield) {
+        electricforce=_electricfield*charge;
+    }
+    double getelectricforce() {
+        return electricforce;
     }
     void clearll() {
         acceleration.clear();
