@@ -9,7 +9,6 @@
 #include <vector>
 #include <random>
 #include <ctime>
-#include <fstream>
 #include <filesystem>
 #include "SIMULACION.hpp"
 using namespace std;
@@ -42,12 +41,6 @@ int main() {
     for (int i=0;i<dropletQ;i++) {
         gotas[i].calcstuff(airD,electricF);
 
-        ofstream archivo_sin_campo("gota" + to_string(i) + "_sin_campo.csv");
-        if (!archivo_sin_campo.is_open()) {
-            cerr << "Error: No se pudo abrir el archivo 'gota" << i << "_sin_campo.csv' para escritura.\n";
-            continue; // Salta al siguiente ciclo si no se puede abrir el archivo
-        }
-        archivo_sin_campo << "Tiempo,Altura,Velocidad\n";
 
         int j=0;
         
@@ -62,22 +55,15 @@ int main() {
             double height=gotas[i].indexheight(j)-vel*deltaT;
             gotas[i].p_height(height);
             gotas[i].p_time(gotas[i].indextime(j)+deltaT);
-            archivo_sin_campo << gotas[i].indextime(j) << "," << gotas[i].indexheight(j) << "," << gotas[i].indexvelociry(j) << "\n";
+            
             j++;
         }
         
-        archivo_sin_campo.close();
         gotas[i].defV_off((gotas[i].vecvelocity()).back());
     
         
         gotas[i].clearll();
 
-        ofstream archivo_con_campo("gota" + to_string(i) + "_con_campo.csv");
-        if (!archivo_con_campo.is_open()) {
-            cerr << "Error: No se pudo abrir el archivo 'gota" << i << "_con_campo.csv' para escritura.\n";
-            continue; // Salta al siguiente ciclo si no se puede abrir el archivo
-        }
-        archivo_con_campo << "Tiempo,Altura,Velocidad\n";
 
         j=0;
         while (abs(gotas[i].indexacc(j))>1e-5 or gotas[i].indexacc(j)==0)
@@ -97,16 +83,14 @@ int main() {
             gotas[i].p_height(height);
             gotas[i].p_time(gotas[i].indextime(j)+deltaT);
             //grafica
-            archivo_con_campo << gotas[i].indextime(j) << "," << gotas[i].indexheight(j) << "," << gotas[i].indexvelociry(j) << "\n";
             j++;
         }
         
-        archivo_con_campo.close();
         gotas[i].defV_on((gotas[i].vecvelocity()).back());
         //calcular la carga electrica de la particula
        
     }
-    
+/*
     for (int i=0;i<dropletQ;i++)
     {
         cout << "GOTA " << i << "\n";
@@ -122,5 +106,6 @@ int main() {
         cout << "****************************************************\n";
     }
     cout << "Directorio actual: " << filesystem::current_path() << endl;
+    */
 }
 
