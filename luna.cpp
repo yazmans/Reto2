@@ -9,7 +9,6 @@
 #include <vector>
 #include <random>
 #include <ctime>
-#include <fstream>
 #include <filesystem>
 #include "SIMULACION.hpp"
 using namespace std;
@@ -18,7 +17,7 @@ using namespace std;
 int main() {
     int dropletQ=1; //cantidad de gotas a analizar
     gota gotas[dropletQ];
-    double deltaT=1e-6; //definir el salto de tiempo
+    double deltaT=1e-7; //definir el salto de tiempo
     double airV= 1.81e-5;
     double airD=1.2;
     double b=7.88e-3;
@@ -33,24 +32,18 @@ int main() {
     double resistencia=resistividad*(espesor/Area);
     double constanteTau=resistencia*capacitancia;
     int contador=0;
+    double EMF=5e3;
     
     
     for (int i=0;i<dropletQ;i++) {
-        double plaquevoltage=5e3;
+        double plaquevoltage=EMF;
         double Q=0;
         double Potentialdis=(Q/(Area*epsilon_0)*plaquedistance);
         double electricF=0;
-        double EMF=plaquevoltage;
         gotas[i].calcstuff(airD,electricF);
         gotas[i].p_P(Potentialdis);
         
 
-        ofstream archivo_sin_campo("gota" + to_string(i) + "_sin_campo.csv");
-        if (!archivo_sin_campo.is_open()) {
-            cerr << "Error: No se pudo abrir el archivo 'gota" << i << "_sin_campo.csv' para escritura.\n";
-            continue; // Salta al siguiente ciclo si no se puede abrir el archivo
-        }
-        archivo_sin_campo << "Tiempo,Altura,Velocidad\n";
 
         int j=0;
         
@@ -65,26 +58,26 @@ int main() {
             double height=gotas[i].indexheight(j)-vel*deltaT;
             gotas[i].p_height(height);
             gotas[i].p_time(gotas[i].indextime(j)+deltaT);
-            archivo_sin_campo << gotas[i].indextime(j) << "," << gotas[i].indexheight(j) << "," << gotas[i].indexvelociry(j) << "\n";
+            
             j++;
         }
-        
-        archivo_sin_campo.close();
-        gotas[i].defV_off((gotas[i].vecvelocity()).back());
+        vector<double> v_off_vec=gotas[i].vecvelocity();
+        int total = v_off_vec.size();
+        int last_part = total / 5;
+        double sum_v = 0;
+        for (int k = total - last_part; k < total; ++k) {
+            sum_v += v_off_vec[k];
+        }
+        double avg_v_off = sum_v / last_part;
+        gotas[i].defV_off(avg_v_off);
     
         
         gotas[i].clearll();
 
-        ofstream archivo_con_campo("gota" + to_string(i) + "_con_campo.csv");
-        if (!archivo_con_campo.is_open()) {
-            cerr << "Error: No se pudo abrir el archivo 'gota" << i << "_con_campo.csv' para escritura.\n";
-            continue; // Salta al siguiente ciclo si no se puede abrir el archivo
-        }
-        archivo_con_campo << "Tiempo,Altura,Velocidad\n";
 
         j=0;
         double Q_cambio=0;
-        while (abs(gotas[i].indexacc(j))>1e-5 or gotas[i].indexacc(j)==0)
+        while (abs(gotas[i].indexacc(j))>1e-1 or gotas[i].indexacc(j)==0)
         {
             Q_cambio=deltaT*(1.0/resistencia)*(EMF-(Q/capacitancia));
             Q=Q+Q_cambio;
@@ -99,7 +92,7 @@ int main() {
             gotas[i].p_P(V_pos);
             double drag=-6*M_PI*airV*gotas[i].getrad()*gotas[i].indexvelociry(j)/(1+(b/pressure*gotas[i].getrad()));
             gotas[i].defdrag(drag);
-            double acceleration=(gotas[i].getweight()+drag+gotas[i].getelectricforce()-gotas[i].getbuoyant())/gotas[i].getmass();
+            double acceleration = (gotas[i].getweight() + drag - gotas[i].getbuoyant() + gotas[i].getcharge() * electricF) / gotas[i].getmass();
             gotas[i].Acc(acceleration);
             double vel= gotas[i].indexvelociry(j)+gotas[i].indexacc(j)*deltaT;
             gotas[i].Vel(vel);
@@ -107,24 +100,53 @@ int main() {
             gotas[i].p_height(height);
             gotas[i].p_time(gotas[i].indextime(j)+deltaT);
             //grafica
-            archivo_con_campo << gotas[i].indextime(j) << "," << gotas[i].indexheight(j) << "," << gotas[i].indexvelociry(j) << "\n";
             j++;
             int contador=j;
         }
+        vector<double> v_on_vec = gotas[i].vecvelocity();
+        total = v_on_vec.size();
+        last_part = total / 5;
+        sum_v = 0;
+        for (int k = total - last_part; k < total; ++k) {
+            sum_v += v_on_vec[k];
+        }
+        double avg_v_on = sum_v / last_part;
         
-        archivo_con_campo.close();
-        gotas[i].defV_on((gotas[i].vecvelocity()).back());
+        gotas[i].defV_on(avg_v_on);
         //calcular la carga electrica de la particula
        
     }
+
     
     //menu interactivo
     string index_1="";
     int index_2=0;
-    double q=(6*M_PI*airV*gotas[0].getrad())/(1+(b/pressure*gotas[0].getrad()))*(gotas[0].getV_on()+gotas[0].getV_off())/gotas[0].getElectric().back();
+    double E_field = EMF / plaquedistance;
+    double rho_oil = gotas[0].getdensity(); // should be ~919.9
+    double rho_air = airD;
+
+    double buoyancy_corr = rho_oil / (rho_oil - rho_air);
+
+    double q = ((2 * 6 * M_PI * airV * gotas[0].getrad()) /
+               (1 + b / (pressure * gotas[0].getrad()))) *
+               ((gotas[0].getV_off() + gotas[0].getV_on()) / E_field) *
+               buoyancy_corr;
+
     cout << gotas[0].getcharge()/-1.602176634e-19 << "\n";
     cout << q/-1.602176634e-19 << "\n";
+    cout << "Radius (m): " << gotas[0].getrad() << endl;
+    cout << "Mass (kg): " << gotas[0].getmass() << endl;
+    cout << "V_off: " << gotas[0].getV_off() << endl;
+    cout << "V_on: " << gotas[0].getV_on() << endl;
+    cout << "E_field: " << E_field << endl;
+    cout << "Real q (e): " << gotas[0].getcharge() / -1.602176634e-19 << endl;
+    cout << "Calc q (e): " << q / -1.602176634e-19 << endl;
+    
+    
     while (index_1!="")
+
+    for (int i=0;i<dropletQ;i++)
+
     {
         //aun no terminado
         cout << "*******************************************\n";
@@ -140,4 +162,3 @@ int main() {
     }
     cout << "Directorio actual: " << filesystem::current_path() << endl;
 }
-
