@@ -12,10 +12,46 @@
 #include <filesystem>
 #include "SIMULACION.hpp"
 using namespace std;
+//funciones para calcular la carga elemental
+double estimate_fast_e(const std::vector<double>& charges, double est_start = 1.5e-19, double est_end = 1.7e-19, double step = 1e-21) {
+    double best_e = 0.0, min_error = std::numeric_limits<double>::max();
 
+    for (double e = est_start; e <= est_end; e += step) {
+        double error = 0.0;
+        for (double q : charges) {
+            int n = static_cast<int>(round(q / e));
+            double q_fit = n * e;
+            error += pow(q - q_fit, 2);
+        }
+        if (error < min_error) {
+            min_error = error;
+            best_e = e;
+        }
+    }
+    return best_e;
+}
+//esta cosa creo que no hace casi nada pero si funciona no le muevas
+double estimate_fine_e(const std::vector<double>& charges, double e_center, double fine_range = 2e-21, double fine_step = 1e-23) {
+    double best_e = e_center;
+    double min_error = std::numeric_limits<double>::max();
+
+    for (double e = e_center - fine_range; e <= e_center + fine_range; e += fine_step) {
+        double error = 0.0;
+        for (double q : charges) {
+            int n = static_cast<int>(round(q / e));
+            double q_fit = n * e;
+            error += pow(q - q_fit, 2);
+        }
+        if (error < min_error) {
+            min_error = error;
+            best_e = e;
+        }
+    }
+    return best_e;
+}
 
 int main() {
-    int dropletQ=1; //cantidad de gotas a analizar
+    int dropletQ=1000; //cantidad de gotas a analizar
     gota gotas[dropletQ];
     double deltaT=1e-8; //definir el salto de tiempo
     double airV= 1.81e-5;//kg/ms
@@ -31,6 +67,7 @@ int main() {
     double resistencia=resistividad*(espesor/Area);
     double constanteTau=resistencia*capacitancia;
     double EMF=5e3;//V
+    vector <double> charges;
     
     
     for (int i=0;i<dropletQ;i++) {
@@ -121,31 +158,43 @@ int main() {
     //menu interactivo
     string index_1="";
     int index_2=0;
-    double E_field = gotas[0].getelectricforce() / gotas[0].getcharge();
-    double rho_oil = gotas[0].getdensity(); // 919.9 kg/m^3
-    double rho_air = airD; // 1.2 kg/m^3
+    for (int i=0; i<dropletQ;i++) {
+        double E_field = gotas[i].getelectricforce() / gotas[i].getcharge();
+        double rho_oil = gotas[i].getdensity(); // 919.9 kg/m^3
+        double rho_air = airD; // 1.2 kg/m^3
+        
+        double buoyancy_corr = rho_oil / (rho_oil - rho_air);
+        
+        double q = -((6 * M_PI * airV * gotas[i].getrad()) /
+                    (1 + b / (pressure * gotas[i].getrad()))) *
+        ((fabs(gotas[i].getV_off()) + gotas[i].getV_on()) / E_field) *
+        buoyancy_corr;
+        cout << "*******************************************\n";
+        cout << gotas[i].getcharge()/-1.602176634e-19 << "\n";
+        cout << q/1.602176634e-19 << "\n";
+        cout << "Mass (kg): " << gotas[i].getmass() << endl;
+        cout<< "Air Viscosity (kg/ms): " << airV << endl;
+        cout<<buoyancy_corr<<endl;
+        cout << "Radius (m): " << gotas[i].getrad() << endl;
+        cout << "V_off: " << gotas[i].getV_off() << endl;
+        cout << "V_on: " << gotas[i].getV_on() << endl;
+        cout << "E_field: " << E_field << endl;
+        cout << "Real q (e): " << gotas[i].getcharge() / -1.602176634e-19 << endl;
+        cout << "Calc q (e): " << q / -1.602176634e-19 << endl;
+        charges.push_back(q);
+        cout << "*******************************************\n";
+    }
+    cout << "*******************************************\n";
+    double rough_e = estimate_fast_e(charges);
+    double fine_e = estimate_fine_e(charges, rough_e);
 
-    double buoyancy_corr = rho_oil / (rho_oil - rho_air);
-
-    double q = ((6 * M_PI * airV * gotas[0].getrad()) /
-               (1 + b / (pressure * gotas[0].getrad()))) *
-               ((fabs(gotas[0].getV_off()) + gotas[0].getV_on()) / E_field) *
-               buoyancy_corr;
-
-    cout << gotas[0].getcharge()/-1.602176634e-19 << "\n";
-    cout << q/1.602176634e-19 << "\n";
-    cout << "Mass (kg): " << gotas[0].getmass() << endl;
-    cout<< "Air Viscosity (kg/ms): " << airV << endl;
-    cout<<buoyancy_corr<<endl;
-    cout << "Radius (m): " << gotas[0].getrad() << endl;
-    cout << "V_off: " << gotas[0].getV_off() << endl;
-    cout << "V_on: " << gotas[0].getV_on() << endl;
-    cout << "E_field: " << E_field << endl;
-    cout << "Real q (e): " << gotas[0].getcharge() / -1.602176634e-19 << endl;
-    cout << "Calc q (e): " << q / -1.602176634e-19 << endl;
+    std::cout << "ESTIMADO FINAL DE e" << fine_e << " C" << std::endl;
+    std::cout << "ERROR PORCENTUAL" << (fine_e - 1.602176634e-19) / 1.602176634e-19 * 100.0 << "%\n";
+    cout << "*******************************************\n";
+    //wowowowoooo
     
-    
-    while (index_1!="")
+
+    while (index_1!="") //esta cosa nunca se va a usar
 
     for (int i=0;i<dropletQ;i++)
 
