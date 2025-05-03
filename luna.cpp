@@ -17,7 +17,7 @@ using namespace std;
 int main() {
     int dropletQ=1; //cantidad de gotas a analizar
     gota gotas[dropletQ];
-    double deltaT=1e-7; //definir el salto de tiempo
+    double deltaT=1e-10; //definir el salto de tiempo
     double airV= 1.81e-5;
     double airD=1.2;
     double b=7.88e-3;
@@ -25,13 +25,11 @@ int main() {
     double pressure=13438.7;
     double espesor=1e-3;
     double resistividad=2.65e-8;
-    double voltaje_C;
     double Area=4e-5;
     double epsilon_0=8.85418781762039e-12;
     double capacitancia=(Area*epsilon_0)/plaquedistance;
     double resistencia=resistividad*(espesor/Area);
     double constanteTau=resistencia*capacitancia;
-    int contador=0;
     double EMF=5e3;
     
     
@@ -51,7 +49,7 @@ int main() {
         {
             double drag=-6*M_PI*airV*gotas[i].getrad()*gotas[i].indexvelociry(j)/(1+(b/pressure*gotas[i].getrad()));
             gotas[i].defdrag(drag);
-            double acceleration=(gotas[i].getweight()+drag-gotas[i].getbuoyant())/gotas[i].getmass();
+            double acceleration=(gotas[i].getweight()+drag+gotas[i].getbuoyant())/gotas[i].getmass();
             gotas[i].Acc(acceleration);
             double vel= gotas[i].indexvelociry(j)+gotas[i].indexacc(j)*deltaT;
             gotas[i].Vel(vel);
@@ -92,7 +90,8 @@ int main() {
             gotas[i].p_P(V_pos);
             double drag=-6*M_PI*airV*gotas[i].getrad()*gotas[i].indexvelociry(j)/(1+(b/pressure*gotas[i].getrad()));
             gotas[i].defdrag(drag);
-            double acceleration = (gotas[i].getweight() + drag - gotas[i].getbuoyant() + gotas[i].getcharge() * electricF) / gotas[i].getmass();
+            double netforce=gotas[i].getbuoyant()+drag-gotas[i].getelectricforce()+gotas[i].getweight();
+            double acceleration=netforce/gotas[i].getmass();
             gotas[i].Acc(acceleration);
             double vel= gotas[i].indexvelociry(j)+gotas[i].indexacc(j)*deltaT;
             gotas[i].Vel(vel);
@@ -101,7 +100,6 @@ int main() {
             gotas[i].p_time(gotas[i].indextime(j)+deltaT);
             //grafica
             j++;
-            int contador=j;
         }
         vector<double> v_on_vec = gotas[i].vecvelocity();
         total = v_on_vec.size();

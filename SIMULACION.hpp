@@ -43,7 +43,7 @@ private:
     double weight;
     double netF;
     double electricforce;
-    double charge= 2.943e-18;
+    double charge;
     int n; // cantidad de intervalos para tomar su pocicion y movimiento (pendiente de eliminar)
     vector<double> height; //vectores de aceleracion,velocidad etcetera que (se supone) tiene que agregarse cada valor corespondiente, PENDIENTE CHECAR SI SE PUEDE USAR UNA MATRIZ
     vector<double> time;
@@ -75,10 +75,10 @@ public:
         charge=getRandomElement(possibleN)*(-1.602176634e-19);
         density=919.9;
         volume=(4.0/3.0*M_PI*pow(radius,3));
-        mass=volume*(density-1.2);
+        mass=volume*(density);
         height.push_back(16e-3);
-        weight=9.803*mass;
-        acceleration.push_back(9.803);
+        weight=-9.803*mass;
+        acceleration.push_back(-9.803);
         velocity.push_back(0);
         time.push_back(0);
     }
@@ -167,7 +167,7 @@ public:
     }
     void calcstuff(double airDensity, double electricfield) {
         buoyantF=airDensity*volume*9.803;
-        electricforce=electricfield*charge;
+        electricforce=-electricfield*charge;
         Electric.push_back(electricfield);
     }
     double getbuoyant() {
@@ -229,7 +229,7 @@ public:
         time.clear();
         velocity.clear();
         height.clear();
-        acceleration.push_back(9.803);
+        acceleration.push_back(-9.803);
         height.push_back(16e-3);
         time.push_back(0);
         velocity.push_back(0);
