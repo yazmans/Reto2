@@ -71,10 +71,10 @@ public:
                 90, 91, 92, 93, 94, 95, 96, 97, 98, 99,
                 100
         };
-        radius=getRandomElement(possibleR)*pow(10,-6);
+        radius=getRandomElement(possibleR)*1e-6;//m
         charge=getRandomElement(possibleN)*(-1.602176634e-19);
-        density=919.9;
-        volume=(4.0/3.0*M_PI*pow(radius,3));
+        density=919.9;//919.9 kg/m^3
+        volume=((4.0/3.0)*M_PI*pow(radius,3));
         mass=volume*(density);
         height.push_back(16e-3);
         weight=-9.803*mass;
