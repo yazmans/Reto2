@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.4.2)  4 MAY 2025 11:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.4.2)  4 MAY 2025 22:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"/Users/angelluna/Documents/vscode/LaTeX/RetoASEC/Reporte 1/main.tex"
-(/Users/angelluna/Documents/vscode/LaTeX/RetoASEC/Reporte 1/main.tex
+**"/Users/angelluna/Downloads/Reto/Reto2/retoasec/Reporte 1/main.tex"
+(/Users/angelluna/Downloads/Reto/Reto2/retoasec/Reporte 1/main.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
 (/usr/local/texlive/2025/texmf-dist/tex/latex/revtex/revtex4-2.cls
@@ -297,14 +297,14 @@ LaTeX Warning: Label `sec:levels' multiply defined.
 
 (/usr/local/texlive/2025/texmf-dist/tex/generic/babel/locale/en/babel-english.tex)
 Package babel Info: Importing data for english
-(babel)             from babel-en.ini. Reported on input line 89.
-LaTeX Info: Redefining \. on input line 90.
-LaTeX Info: Redefining \% on input line 90.
+(babel)             from babel-en.ini. Reported on input line 90.
+LaTeX Info: Redefining \. on input line 91.
+LaTeX Info: Redefining \% on input line 91.
  (/usr/local/texlive/2025/texmf-dist/tex/generic/babel/locale/fr/babel-french.tex)
 Package babel Info: Importing data for french
-(babel)             from babel-fr.ini. Reported on input line 91.
-LaTeX Info: Redefining \. on input line 92.
-LaTeX Info: Redefining \% on input line 92.
+(babel)             from babel-fr.ini. Reported on input line 92.
+LaTeX Info: Redefining \. on input line 93.
+LaTeX Info: Redefining \% on input line 93.
 )
 \openout1 = `main.aux'.
 
@@ -389,10 +389,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 69--70
 LaTeX Info: Redefining \. on input line 72.
 LaTeX Info: Redefining \% on input line 72.
 ) [6] (./main.aux
-LaTeX Info: Redefining \. on input line 90.
-LaTeX Info: Redefining \% on input line 90.
-LaTeX Info: Redefining \. on input line 92.
-LaTeX Info: Redefining \% on input line 92.
+LaTeX Info: Redefining \. on input line 91.
+LaTeX Info: Redefining \% on input line 91.
+LaTeX Info: Redefining \. on input line 93.
+LaTeX Info: Redefining \% on input line 93.
 )
  ***********
 LaTeX2e <2024-11-01> patch level 2
@@ -405,14 +405,14 @@ LaTeX Warning: There were multiply-defined labels.
  ) 
 Here is how much of TeX's memory you used:
  8551 strings out of 473190
- 127225 string characters out of 5715801
+ 127219 string characters out of 5715801
  761087 words of memory out of 5000000
  31704 multiletter control sequences out of 15000+600000
  570171 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 71i,9n,79p,1035b,1339s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 71i,9n,79p,1033b,1339s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/latxfont/lcircle1.pfb>
-Output written on main.pdf (6 pages, 472032 bytes).
+Output written on main.pdf (6 pages, 473031 bytes).
 PDF statistics:
  108 PDF objects out of 1000 (max. 8388607)
  63 compressed objects within 1 object stream

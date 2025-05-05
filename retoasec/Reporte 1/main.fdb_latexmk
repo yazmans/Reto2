@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex main"] 1746380292.20905 "main.aux" "main.bbl" "main" 1746380295.52887 0
+["bibtex main"] 1746417839.54022 "main.aux" "main.bbl" "main" 1746417845.97629 0
   "./bibliography.bib" 1746380274.5084 4252 06e2847a09be7148ea7ae5633c493ff7 ""
-  "./mainNotes.bib" 1746380294.33146 104 4d8bb863c86f3d7b03a471e9d4707f34 ""
+  "./mainNotes.bib" 1746417843.89229 104 4d8bb863c86f3d7b03a471e9d4707f34 ""
   "/usr/local/texlive/2025/texmf-dist/bibtex/bst/revtex/apsrev4-2.bst" 1601932770 69609 e9dea59f0e753ccda3ddc8f5806d846d ""
-  "main.aux" 1746380294.32704 5117 9c9b0f2dae95f5600ce5edb6550304c8 "pdflatex"
+  "main.aux" 1746417843.88323 5280 eea13866c56a736683e0249710ca3888 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1746380292.49241 "/Users/angelluna/Documents/vscode/LaTeX/RetoASEC/Reporte 1/main.tex" "main.pdf" "main" 1746380295.52945 0
-  "/Users/angelluna/Documents/vscode/LaTeX/RetoASEC/Reporte 1/main.tex" 1746334181.45753 22967 fc43e178f40f28783bedc5d5027942a9 ""
+["pdflatex"] 1746417840.12417 "/Users/angelluna/Downloads/Reto/Reto2/retoasec/Reporte 1/main.tex" "main.pdf" "main" 1746417845.97714 0
+  "/Users/angelluna/Downloads/Reto/Reto2/retoasec/Reporte 1/main.tex" 1746417832.47799 23946 7e51deb6fb98e0bacb4b0a27d24b5a19 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy5.tfm" 1246382020 1120 1e8878807317373affa7f7bba4cf2f6a ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmbsy6.tfm" 1246382020 1124 14ccf5552bc7f77ca02a8a402bea8bfb ""
@@ -115,9 +115,9 @@
   "Scheme_of_Millikan’s_oil-drop_apparatus.png" 1746349970 54974 d33ed551c18bc6666e489ec64c572e06 ""
   "Screenshot 2025-04-02 at 15.10.25.png" 1746349970 37119 1917dba0829fd864499a489e248a1b33 ""
   "Screenshot 2025-04-27 at 22.22.51.jpg" 1746330197.83959 178617 da25314ccc3439afdee02fb882ce4365 ""
-  "main.aux" 1746380294.32704 5117 9c9b0f2dae95f5600ce5edb6550304c8 "pdflatex"
-  "main.bbl" 1746380292.48571 9033 00ec7ed1939f0522087d51735062ee7e "bibtex main"
-  "main.tex" 1746334181.45753 22967 fc43e178f40f28783bedc5d5027942a9 ""
+  "main.aux" 1746417843.88323 5280 eea13866c56a736683e0249710ca3888 "pdflatex"
+  "main.bbl" 1746417840.11344 9033 00ec7ed1939f0522087d51735062ee7e "bibtex main"
+  "main.tex" 1746417832.47799 23946 7e51deb6fb98e0bacb4b0a27d24b5a19 ""
   (generated)
   "main.aux"
   "main.log"
